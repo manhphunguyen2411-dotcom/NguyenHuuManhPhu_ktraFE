@@ -1,0 +1,463 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    @functions {
+        public string ToVND(double usdPrice)
+        {
+            double rate = 25000;
+            double vnd = usdPrice * rate;
+            return string.Format("{0:#,##0} ₫", vnd);
+        }
+    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Product List - nguyenhuumanhphu_KtraFE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amazon_blue: {
+                            light: '#232f3e',
+                            DEFAULT: '#131921',
+                        },
+                        amazon_yellow: {
+                            DEFAULT: '#febd69',
+                            dark: '#f0c14b',
+                            btn: '#ffd814'
+                        },
+                        amazon_orange: '#e47911',
+                        amazon_light: '#f3f3f3',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #fff;
+            color: #0f1111;
+        }
+
+        .amazon-btn-yellow {
+            background-color: #ffd814;
+            border-color: #fcd200;
+        }
+
+            .amazon-btn-yellow:hover {
+                background-color: #f7ca00;
+            }
+
+        .amazon-btn-orange {
+            background-color: #ffa41c;
+            border-color: #ff8f00;
+        }
+
+            .amazon-btn-orange:hover {
+                background-color: #fa8900;
+            }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <header class="bg-amazon_blue text-white sticky top-0 z-50">
+        <div class="max-w-[1500px] mx-auto flex items-center p-2 text-sm gap-2">
+            <a href="#" class="flex items-center p-1.5 border border-transparent hover:border-white rounded text-white font-bold text-xl tracking-tight">
+                <span class="text-2xl font-black">amazon</span><span class="text-xs text-amazon_yellow font-normal leading-none font-sans">.com</span>
+            </a>
+            <div class="hidden md:flex items-center p-1.5 border border-transparent hover:border-white rounded cursor-pointer text-xs">
+                <i class="fas fa-map-marker-alt text-base mr-1.5 self-end mb-0.5"></i>
+                <div class="flex flex-col">
+                    <span class="text-gray-300 text-[11px]">Deliver to</span>
+                    <span class="font-bold">Vietnam</span>
+                </div>
+            </div>
+            <div class="flex flex-grow h-10 rounded-md bg-white overflow-hidden focus-within:ring-2 focus-within:ring-amazon_yellow">
+
+                <select class="bg-gray-100 text-gray-700 px-3 text-xs border-r border-gray-300 outline-none hover:bg-gray-200 cursor-pointer hidden sm:block">
+                    <option>All Departments</option>
+                    <option>Home & Kitchen</option>
+                    <option>Cleaning Supplies</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                </select>
+                <input type="text" value="cleaning tools" class="px-3 py-2 flex-grow text-black text-sm outline-none" placeholder="Search Amazon">
+
+                <button class="bg-amazon_yellow hover:bg-amazon_yellow-dark px-5 text-gray-800 flex items-center justify-center">
+                    <i class="fas fa-search text-lg"></i>
+                </button>
+            </div>
+            <div class="flex items-center space-x-1 sm:space-x-3 text-xs">
+
+                <div class="hidden lg:flex items-center p-1.5 border border-transparent hover:border-white rounded cursor-pointer font-bold">
+                    <span class="mr-1">EN</span>
+                    <i class="fas fa-caret-down text-gray-400"></i>
+                </div>
+                <div class="p-1.5 border border-transparent hover:border-white rounded cursor-pointer">
+                    <div class="text-[11px] text-gray-300 leading-none">Hello, sign in</div>
+                    <div class="font-bold text-xs mt-0.5">Account & Lists <i class="fas fa-caret-down text-gray-400 text-[10px]"></i></div>
+                </div>
+                <div class="hidden sm:block p-1.5 border border-transparent hover:border-white rounded cursor-pointer">
+                    <div class="text-[11px] text-gray-300 leading-none">Returns</div>
+                    <div class="font-bold text-xs mt-0.5">& Orders</div>
+                </div>
+                <a href="#" class="flex items-end p-1.5 border border-transparent hover:border-white rounded cursor-pointer relative">
+                    <div class="relative">
+                        <i class="fas fa-shopping-cart text-2xl text-white"></i>
+                        <span class="absolute -top-1 right-2 text-amazon_yellow font-bold text-sm bg-amazon_blue rounded-full px-1">2</span>
+                    </div>
+                    <span class="font-bold hidden sm:inline ml-1">Cart</span>
+                </a>
+            </div>
+        </div>
+        <div class="bg-amazon_blue-light px-4 py-1.5 flex items-center space-x-4 text-xs overflow-x-auto no-scrollbar">
+            <button class="flex items-center font-bold text-white hover:border hover:border-white px-2 py-1 rounded">
+                <i class="fas fa-bars text-sm mr-1.5"></i> All
+            </button>
+            <a href="#" class="text-white hover:border hover:border-white px-2 py-1 rounded whitespace-nowrap">Today's Deals</a>
+            <a href="#" class="text-white hover:border hover:border-white px-2 py-1 rounded whitespace-nowrap">Customer Service</a>
+            <a href="#" class="text-white hover:border hover:border-white px-2 py-1 rounded whitespace-nowrap">Registry</a>
+            <a href="#" class="text-white hover:border hover:border-white px-2 py-1 rounded whitespace-nowrap">Gift Cards</a>
+            <a href="#" class="text-white hover:border hover:border-white px-2 py-1 rounded whitespace-nowrap">Sell</a>
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <main class="max-w-[1500px] mx-auto bg-white w-full flex-grow flex flex-col md:flex-row shadow-sm">
+        <aside class="w-full md:w-64 p-4 border-r border-gray-200 text-xs shrink-0 bg-white">
+            <div class="mb-5">
+                <h3 class="font-bold text-sm text-gray-900 mb-2">Department</h3>
+                <ul class="space-y-1.5 text-gray-700 pl-1">
+                    <li><a href="#" class="font-bold hover:text-amazon_orange"><i class="fas fa-chevron-left text-[9px] mr-1"></i> Home & Kitchen</a></li>
+                    <li class="pl-3"><a href="#" class="font-semibold text-gray-800">Cleaning Supplies</a></li>
+                    <li class="pl-6"><a href="#" class="hover:text-amazon_orange text-gray-600">Household Cleaning Supplies</a></li>
+                    <li class="pl-9"><a href="#" class="font-bold text-gray-900">Electric Spin Scrubbers</a></li>
+                </ul>
+            </div>
+            <div class="mb-5 border-t border-gray-200 pt-4">
+                <h3 class="font-bold text-sm text-gray-900 mb-2">Customer Reviews</h3>
+                <div class="space-y-1.5">
+                    <a href="#" class="flex items-center text-amazon_orange hover:text-red-700">
+                        <div class="text-amazon_yellow text-sm mr-1">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-800 text-xs">& Up</span>
+                    </a>
+                    <a href="#" class="flex items-center text-amazon_orange hover:text-red-700">
+                        <div class="text-amazon_yellow text-sm mr-1">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-800 text-xs">& Up</span>
+                    </a>
+                    <a href="#" class="flex items-center text-amazon_orange hover:text-red-700">
+                        <div class="text-amazon_yellow text-sm mr-1">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-800 text-xs">& Up</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mb-5 border-t border-gray-200 pt-4">
+                <h3 class="font-bold text-sm text-gray-900 mb-2">Price</h3>
+                <ul class="space-y-1 text-gray-700 mb-3">
+                    <li><a href="#" class="hover:text-amazon_orange">Under $25</a></li>
+                    <li><a href="#" class="hover:text-amazon_orange">$25 to $50</a></li>
+                    <li><a href="#" class="hover:text-amazon_orange">$50 to $100</a></li>
+                    <li><a href="#" class="hover:text-amazon_orange">$100 & Above</a></li>
+                </ul>
+                <div class="flex items-center gap-1.5">
+                    <input type="text" placeholder="$ Min" class="w-16 p-1 border border-gray-400 rounded text-xs outline-none focus:border-amazon_orange">
+                    <span>-</span>
+                    <input type="text" placeholder="$ Max" class="w-16 p-1 border border-gray-400 rounded text-xs outline-none focus:border-amazon_orange">
+                    <button class="px-2 py-1 border border-gray-400 rounded-md bg-gray-50 hover:bg-gray-100 shadow-sm text-xs font-semibold">Go</button>
+                </div>
+            </div>
+            <div class="mb-5 border-t border-gray-200 pt-4">
+                <h3 class="font-bold text-sm text-gray-900 mb-2">Brands</h3>
+                <div class="space-y-2 text-gray-700">
+                    <label class="flex items-center cursor-pointer"><input type="checkbox" checked class="mr-2 rounded text-amazon_orange"> Labigo</label>
+                    <label class="flex items-center cursor-pointer"><input type="checkbox" class="mr-2 rounded text-amazon_orange"> Leebein</label>
+                    <label class="flex items-center cursor-pointer"><input type="checkbox" class="mr-2 rounded text-amazon_orange"> Oraimo</label>
+                    <label class="flex items-center cursor-pointer"><input type="checkbox" class="mr-2 rounded text-amazon_orange"> Homitt</label>
+                    <label class="flex items-center cursor-pointer"><input type="checkbox" class="mr-2 rounded text-amazon_orange"> Voweek</label>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <h3 class="font-bold text-sm text-gray-900 mb-2">Deals & Discounts</h3>
+                <ul class="space-y-1 text-gray-700">
+                    <li><a href="#" class="font-semibold text-gray-800 hover:text-amazon_orange">All Deals</a></li>
+                    <li><a href="#" class="hover:text-amazon_orange">Today's Deals</a></li>
+                </ul>
+            </div>
+        </aside>
+        <section class="flex-grow p-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-gray-200 mb-4 gap-2 text-xs">
+                <div>
+                    <span class="text-gray-700">1-16 of over 40,000 results for</span>
+                    <span class="font-bold text-amazon_orange"> "cleaning tools"</span>
+                </div>
+                <div class="flex items-center">
+                    <label for="sort" class="mr-2 text-gray-600">Sort by:</label>
+                    <select id="sort" class="border border-gray-300 rounded px-2 py-1 bg-gray-50 hover:bg-gray-100 cursor-pointer outline-none shadow-sm">
+                        <option>Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Avg. Customer Review</option>
+                        <option>Newest Arrivals</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="border border-gray-200 rounded p-3 flex flex-col justify-between hover:shadow-md transition-shadow bg-white">
+                    <div>
+                        <div class="h-48 flex items-center justify-center p-2 mb-2 bg-gray-50 rounded overflow-hidden">
+                            <img src="https://th.bing.com/th/id/OIP.iQRYvDooqFGTU3rGBpOg1gHaHa?w=199&h=199&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3 " alt="Electric Spin Scrubber" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <span class="bg-red-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">Best Seller</span>
+                        <a href="#" class="text-sm font-semibold text-gray-900 hover:text-amazon_orange line-clamp-2 mt-1 leading-snug">
+                            Electric Spin Scrubber, 2024 New Cordless Cleaning Brush with 8 Replaceable Brush Heads
+                        </a>
+                        <div class="flex items-center mt-1">
+                            <div class="text-amazon_yellow text-xs mr-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-xs text-blue-600 hover:underline">12,450</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500">10K+ bought in past month</div>
+                        <div class="mt-2 flex items-baseline">
+                            <span class="text-xs align-top font-medium">$</span>
+                            <span class="text-2xl font-bold text-gray-900">39</span>
+                            <span class="text-xs align-top font-medium">99</span>
+                            <span class="text-xs text-gray-500 line-through ml-2">$69.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mt-0.5">
+                            <span class="font-bold text-blue-800">prime</span> One-Day
+                        </div>
+                        <div class="text-xs text-gray-600">FREE Delivery Thu, Nov 7</div>
+                    </div>
+                    <button class="mt-3 w-full amazon-btn-yellow text-gray-900 font-medium py-1.5 px-3 rounded-full text-xs shadow-sm focus:outline-none">
+                        Add to Cart
+                    </button>
+                </div>
+                <div class="border border-gray-200 rounded p-3 flex flex-col justify-between hover:shadow-md transition-shadow bg-white">
+                    <div>
+                        <div class="h-48 flex items-center justify-center p-2 mb-2 bg-gray-50 rounded overflow-hidden">
+                            <img src="https://levotrading.com/wp-content/uploads/2023/04/may-cha-san-lien-hop-dung-dien-hiclean-t4-e.jpg?v=1700670825" alt="Spin Scrubber" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <span class="bg-gray-800 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">Overall Pick</span>
+                        <a href="#" class="text-sm font-semibold text-gray-900 hover:text-amazon_orange line-clamp-2 mt-1 leading-snug">
+                            Leebein Electric Spin Scrubber, Cordless Power Scrubber with 8 Brush Heads, Adjustable Extension Handle
+                        </a>
+                        <div class="flex items-center mt-1">
+                            <div class="text-amazon_yellow text-xs mr-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-blue-600 hover:underline">8,321</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500">5K+ bought in past month</div>
+                        <div class="mt-2 flex items-baseline">
+                            <span class="text-xs align-top font-medium">$</span>
+                            <span class="text-2xl font-bold text-gray-900">45</span>
+                            <span class="text-xs align-top font-medium">99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mt-0.5">
+                            <span class="font-bold text-blue-800">prime</span>
+                        </div>
+                        <div class="text-xs text-gray-600">FREE Delivery Fri, Nov 8</div>
+                    </div>
+                    <button class="mt-3 w-full amazon-btn-yellow text-gray-900 font-medium py-1.5 px-3 rounded-full text-xs shadow-sm focus:outline-none">
+                        Add to Cart
+                    </button>
+                </div>
+                <div class="border border-gray-200 rounded p-3 flex flex-col justify-between hover:shadow-md transition-shadow bg-white">
+                    <div>
+                        <div class="h-48 flex items-center justify-center p-2 mb-2 bg-gray-50 rounded overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&auto=format&fit=crop&q=60" alt="Cordless Spin Scrubber" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <a href="#" class="text-sm font-semibold text-gray-900 hover:text-amazon_orange line-clamp-2 mt-1 leading-snug">
+                            Electric Spin Scrubber - Cordless Cleaning Brush with Digital Display, 2 Speeds, IPX7 Waterproof
+                        </a>
+                        <div class="flex items-center mt-1">
+                            <div class="text-amazon_yellow text-xs mr-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-xs text-blue-600 hover:underline">3,120</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500">2K+ bought in past month</div>
+                        <div class="mt-2 flex items-baseline">
+                            <span class="text-xs align-top font-medium">$</span>
+                            <span class="text-2xl font-bold text-gray-900">35</span>
+                            <span class="text-xs align-top font-medium">99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mt-0.5">
+                            <span class="font-bold text-blue-800">prime</span>
+                        </div>
+                        <div class="text-xs text-gray-600">FREE Delivery Thu, Nov 7</div>
+                    </div>
+                    <button class="mt-3 w-full amazon-btn-yellow text-gray-900 font-medium py-1.5 px-3 rounded-full text-xs shadow-sm focus:outline-none">
+                        Add to Cart
+                    </button>
+                </div>
+                <div class="border border-gray-200 rounded p-3 flex flex-col justify-between hover:shadow-md transition-shadow bg-white">
+                    <div>
+                        <div class="h-48 flex items-center justify-center p-2 mb-2 bg-gray-50 rounded overflow-hidden">
+                            <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7rdwv-m0yw10wxx0j8bb" alt="Handheld Scrubber" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <a href="#" class="text-sm font-semibold text-gray-900 hover:text-amazon_orange line-clamp-2 mt-1 leading-snug">
+                            Cosybeila Power Spin Scrubber Handheld Cordless Brush for Bathroom & Kitchen Tile
+                        </a>
+                        <div class="flex items-center mt-1">
+                            <div class="text-amazon_yellow text-xs mr-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-xs text-blue-600 hover:underline">1,894</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500">1K+ bought in past month</div>
+                        <div class="mt-2 flex items-baseline">
+                            <span class="text-xs align-top font-medium">$</span>
+                            <span class="text-2xl font-bold text-gray-900">34</span>
+                            <span class="text-xs align-top font-medium">99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mt-0.5">
+                            <span class="font-bold text-blue-800">prime</span>
+                        </div>
+                        <div class="text-xs text-gray-600">FREE Delivery Mon, Nov 11</div>
+                    </div>
+                    <button class="mt-3 w-full amazon-btn-yellow text-gray-900 font-medium py-1.5 px-3 rounded-full text-xs shadow-sm focus:outline-none">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-300 pt-6">
+                <h2 class="text-base font-bold text-gray-900 mb-3">Customers who viewed items in your browsing history also viewed</h2>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+
+                    <div class="text-xs bg-white p-2 border border-gray-100 rounded">
+                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=200&auto=format&fit=crop&q=60" alt="Handbag" class="h-32 w-full object-contain mb-2">
+                        <a href="#" class="text-blue-700 hover:text-amazon_orange line-clamp-2">Sammy Vintage Leather Tote Bag</a>
+                        <div class="text-amazon_yellow text-[10px] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                        <div class="text-gray-900 font-bold mt-1">950.000vnd</div>
+                    </div>
+                    <div class="text-xs bg-white p-2 border border-gray-100 rounded">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=200&auto=format&fit=crop&q=60" alt="Handbag" class="h-32 w-full object-contain mb-2">
+                        <a href="#" class="text-blue-700 hover:text-amazon_orange line-clamp-2">Women Shoulder Tote Purse</a>
+                        <div class="text-amazon_yellow text-[10px] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="text-gray-900 font-bold mt-1">800.000vnd</div>
+                    </div>
+
+                    <div class="text-xs bg-white p-2 border border-gray-100 rounded">
+                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&auto=format&fit=crop&q=60" alt="Leather Bag" class="h-32 w-full object-contain mb-2">
+                        <a href="#" class="text-blue-700 hover:text-amazon_orange line-clamp-2">Classic Top Handle Satchel Bag</a>
+                        <div class="text-amazon_yellow text-[10px] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="text-gray-900 font-bold mt-1">1.249.750vnd</div>
+                    </div>
+                    <div class="text-xs bg-white p-2 border border-gray-100 rounded">
+                        <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=200&auto=format&fit=crop&q=60" alt="Shoulder Bag" class="h-32 w-full object-contain mb-2">
+                        <a href="#" class="text-blue-700 hover:text-amazon_orange line-clamp-2">Casual Canvas Hobo Bag Crossbody</a>
+                        <div class="text-amazon_yellow text-[10px] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                        <div class="text-gray-900 font-bold mt-1">790.000 vnd </div>
+                    </div>
+                    <div class="text-xs bg-white p-2 border border-gray-100 rounded">
+                        <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=200&auto=format&fit=crop&q=60" alt="Purse" class="h-32 w-full object-contain mb-2">
+                        <a href="#" class="text-blue-700 hover:text-amazon_orange line-clamp-2">Fashion Waterproof Nylon Shoulder Bag</a>
+                        <div class="text-amazon_yellow text-[10px] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="text-gray-900 font-bold mt-1">649.800vnd</div>
+                    </div>
+                    <div class="text-xs bg-white p-2 border border-gray-100 rounded">
+                        <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=200&auto=format&fit=crop&q=60" alt="Tote" class="h-32 w-full object-contain mb-2">
+                        <a href="#" class="text-blue-700 hover:text-amazon_orange line-clamp-2">Soft Vegan Leather Messenger Bag</a>
+                        <div class="text-amazon_yellow text-[10px] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="text-gray-900 font-bold mt-1">899.750vnd</div>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <footer class="bg-amazon_blue-light text-white text-xs mt-8">
+        <a href="#" class="block bg-[#37475a] hover:bg-[#485769] text-center py-3 font-semibold text-xs transition">
+            Back to top
+        </a>
+        <div class="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white">Get to Know Us</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="#" class="hover:underline">Careers</a></li>
+                    <li><a href="#" class="hover:underline">Blog</a></li>
+                    <li><a href="#" class="hover:underline">About Amazon</a></li>
+                    <li><a href="#" class="hover:underline">Investor Relations</a></li>
+                    <li><a href="#" class="hover:underline">Amazon Devices</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white">Make Money with Us</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="#" class="hover:underline">Sell products on Amazon</a></li>
+                    <li><a href="#" class="hover:underline">Sell on Amazon Business</a></li>
+                    <li><a href="#" class="hover:underline">Sell apps on Amazon</a></li>
+                    <li><a href="#" class="hover:underline">Become an Affiliate</a></li>
+                    <li><a href="#" class="hover:underline">Advertise Your Products</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white">Amazon Payment Products</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="#" class="hover:underline">Amazon Business Card</a></li>
+                    <li><a href="#" class="hover:underline">Shop with Points</a></li>
+                    <li><a href="#" class="hover:underline">Reload Your Balance</a></li>
+                    <li><a href="#" class="hover:underline">Amazon Currency Converter</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm mb-3 text-white">Let Us Help You</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="#" class="hover:underline">Amazon and COVID-19</a></li>
+                    <li><a href="#" class="hover:underline">Your Account</a></li>
+                    <li><a href="#" class="hover:underline">Your Orders</a></li>
+                    <li><a href="#" class="hover:underline">Shipping Rates & Policies</a></li>
+                    <li><a href="#" class="hover:underline">Returns & Replacements</a></li>
+                    <li><a href="#" class="hover:underline">Help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 bg-amazon_blue py-8 text-center text-gray-400">
+            <div class="flex justify-center items-center space-x-6 mb-4">
+                <span class="text-xl font-bold text-white">amazon</span>
+                <div class="border border-gray-600 px-3 py-1 rounded text-xs text-gray-300 flex items-center gap-2">
+                    <i class="fas fa-globe"></i> English
+                </div>
+            </div>
+            <div class="space-x-4 text-[11px] mb-2">
+                <a href="#" class="hover:underline">Conditions of Use</a>
+                <a href="#" class="hover:underline">Privacy Notice</a>
+                <a href="#" class="hover:underline">Consumer Health Data Privacy Disclosure</a>
+                <a href="#" class="hover:underline">Your Ads Privacy Choices</a>
+            </div>
+            <div class="text-[11px] text-gray-500">
+                © 1996-2026, Amazon.com, Inc. or its affiliates
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
